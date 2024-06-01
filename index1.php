@@ -3,7 +3,7 @@
     $var = "Bienvenue sur le Forum La Click Project !";
 ?>
 <!doctype html>
-<html lang="fr"> 
+<html lang="fr">  
   <head>
     <title>Accueil - La Click Project</title>
     <?php

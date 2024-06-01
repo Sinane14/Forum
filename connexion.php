@@ -13,6 +13,7 @@
         $valid = (boolean) true;
         
         if(isset($_POST['connexion'])){
+            
             $pseudo = ucfirst(trim($pseudo));
             $password = trim($password);
 
