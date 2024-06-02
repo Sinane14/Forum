@@ -86,7 +86,7 @@ class Connexion{
         return [$err_pseudo, $err_password];
     }
 
-}
+} 
 
 
 ?>
