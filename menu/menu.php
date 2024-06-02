@@ -16,7 +16,7 @@
                         }else{
 
                     ?>
-                    <a class="nav-link" href="profil/profil.php">Profil</a>
+                    <a class="nav-link" href="profil/profil.php">Mon Profil</a>
                     <a class="nav-link" href="logout.php">Déconnexion</a>
                     <?php
                         }

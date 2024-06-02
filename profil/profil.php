@@ -59,6 +59,9 @@
                 <div>
                     Rôle utilisateur : <?= $Statut ?>
                 </div>
+                <div>
+                    <a href="profil/edit-profil.php">Modifier mon compte</a>
+                </div>
             </div>
         </div>
     </div>
