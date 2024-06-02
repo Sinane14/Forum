@@ -6,6 +6,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
+                    <a class="nav-link" href="member.php">Membres</a>
                     <?php
                         if(!isset($_SESSION['Nickname'])){
                     ?>

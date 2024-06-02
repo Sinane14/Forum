@@ -1,6 +1,11 @@
 <?php
     class Signin{
 
+        private $valid;
+        private $err_pseudo;
+        private $err_mail;
+        private $err_password;
+
         public function verification_inscription($pseudo, $mail, $confmail, $password, $confpassword){
             
             global $DB;
@@ -13,73 +18,16 @@
             $confpassword = (String) trim($confpassword);
             
             // Variables déclarés
-            $err_pseudo = (String) '';
-            $err_mail = (String) '';
-            $err_password = (String) '';
-            $valid = (boolean) true;
+            $this->err_pseudo = (String) '';
+            $this->err_mail = (String) '';
+            $this->err_password = (String) '';
+            $this->valid = (boolean) true;
+            $this->verification_pseudo($pseudo);
+            $this->verification_mail($mail, $confmail);
+            $this->verification_password($password, $confpassword);
 
-            if(empty($pseudo)){
-                $valid = false;
-                $err_pseudo = "Ce champ ne peut pas être vide";
-            }elseif(grapheme_strlen($pseudo) < 5){
-                $valid = false;
-                $err_pseudo = "Le pseudo doit faire plus de 5 caractères";
-            
-            }elseif(grapheme_strlen($pseudo) > 15){
-                $valid = false;
-                $err_pseudo = "Le pseudo doit faire au maximum 15 caractères (" . grapheme_strlen($pseudo) . "/15)";
-            
-            }else{
-                $req = $DB->prepare("SELECT ID_user
-                    FROM User
-                    WHERE Nickname = ?");
 
-                $req->execute(array($pseudo));
-
-                $req = $req->fetch();
-
-                if(isset($req['id'])){
-                    $valid = false;
-                    $err_pseudo = "Ce pseudo est déjà pris";
-
-                }
-            }
-
-            if(empty($mail)){
-                $valid = false;
-                $err_mail = "Ce champ ne peut pas être vide";
-            
-            }elseif(!filter_var($mail, FILTER_VALIDATE_EMAIL)){
-                $valid = false;
-                $err_mail = "Format invalide pour cette addresse email";
-                
-            }elseif($mail <> $confmail){
-                $valid = false;
-                $err_mail = "Le mail est différent de la confirmation";
-            }else{
-                $req = $DB->prepare("SELECT ID_user
-                    FROM User
-                    WHERE Email_address = ?");
-                
-                $req->execute(array($mail));
-
-                $req = $req->fetch();
-
-                if(isset($req['id'])){
-                    $valid = false;
-                    $err_mail = "Ce mail est déjà pris";
-                }
-            }
-
-            if(empty($password)){
-                $valid = false;
-                $err_password = "Ce champ ne peut pas être vide";
-            }elseif($password <> $confpassword){
-                $valid = false;
-                $err_password = "Le mot de passe est différent de la confirmation";
-            }
-
-            if($valid){
+            if($this->valid){
 
                 // $crypt_password = crypt($password, '$6$rounds=5000$=6kr:f=3QM^qzC/Nn1nPV y<mJ^Ff^/aid}dTF0h|/?2[9~B_2z>v3%&fo$'); //Cryptage du mot de passe
                 $crypt_password = password_hash($password, PASSWORD_ARGON2ID);
@@ -101,8 +49,87 @@
 
                 exit;
             }
-            return [$err_pseudo, $err_mail, $err_password];
+            return [$this->err_pseudo, $this->err_mail, $this->err_password];
         }
+
+        private function verification_pseudo($pseudo){
+
+            global $DB;
+
+            if(empty($pseudo)){
+                $this->valid = false;
+                $this->err_pseudo = "Ce champ ne peut pas être vide";
+            }elseif(grapheme_strlen($pseudo) < 5){
+                $this->valid = false;
+                $this->err_pseudo = "Le pseudo doit faire plus de 5 caractères";
+            
+            }elseif(grapheme_strlen($pseudo) > 15){
+                $this->valid = false;
+                $this->err_pseudo = "Le pseudo doit faire au maximum 15 caractères (" . grapheme_strlen($pseudo) . "/15)";
+            
+            }else{
+                $req = $DB->prepare("SELECT ID_user
+                    FROM User
+                    WHERE Nickname = ?");
+
+                $req->execute(array($pseudo));
+
+                $req = $req->fetch();
+
+                if(isset($req['id'])){
+                    $this->valid = false;
+                    $this->err_pseudo = "Ce pseudo est déjà pris";
+
+                }
+            }
+        }
+
+        private function verification_mail($mail, $confmail){
+
+            global $DB;
+            
+            if(empty($mail)){
+                $this->valid = false;
+                $this->err_mail = "Ce champ ne peut pas être vide";
+            
+            }elseif(!filter_var($mail, FILTER_VALIDATE_EMAIL)){
+                $this->valid = false;
+                $this->err_mail = "Format invalide pour cette addresse email";
+                
+            }elseif($mail <> $confmail){
+                $this->valid = false;
+                $this->err_mail = "Le mail est différent de la confirmation";
+            }else{
+                $req = $DB->prepare("SELECT ID_user
+                    FROM User
+                    WHERE Email_address = ?");
+                
+                $req->execute(array($mail));
+
+                $req = $req->fetch();
+
+                if(isset($req['id'])){
+                    $this->valid = false;
+                    $err_mail = "Ce mail est déjà pris";
+                }
+            }
+
+        
+        }
+
+        private function verification_password($password, $confpassword){
+            
+            if(empty($password)){
+                $this->valid = false;
+                $this->err_password = "Ce champ ne peut pas être vide";
+            }elseif($password <> $confpassword){
+                $this->valid = false;
+                $this->err_password = "Le mot de passe est différent de la confirmation";
+            }
+
+        
+        }
+        
         
     }
 
