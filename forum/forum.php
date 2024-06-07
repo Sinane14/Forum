@@ -30,7 +30,7 @@
             <div class="col-3">
                 <div><?= htmlspecialchars($rf["Title"]) ?></div>
                 <div>
-                    <a href="forum/listforum.php?id=<?= htmlspecialchars($rf['ID_forum']); ?>">Voir topics</a>
+                    <a href="forum/list-topics.php?id=<?= htmlspecialchars($rf['ID_forum']); ?>">Voir topics</a>
                 </div>
             </div>
             <?php

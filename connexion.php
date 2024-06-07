@@ -1,37 +1,34 @@
 <?php
-    require_once('include.php');
+require_once('include.php');
 
-    
-    if(isset($_SESSION['Nickname'])){
-        header("Location: index.php");
-        exit;
+// Redirige si l'utilisateur est déjà connecté
+if (isset($_SESSION['Nickname'])) {
+    header("Location: index.php");
+    exit;
+}
+
+// Traitement du formulaire de connexion
+if (!empty($_POST)) {
+    extract($_POST);
+
+    if (isset($_POST['connexion'])) {
+        [$err_pseudo, $err_password] = $Connexion->verification_connexion($pseudo, $password);
     }
-
-    if(!empty($_POST)){
-        extract($_POST);
-
-        if(isset($_POST['connexion'])){
-
-            [$err_pseudo, $err_password] = $Connexion->verification_connexion($pseudo, $password);
-            
-            
-        }
-    }
-        
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <?php
-        require_once('head/meta.php');
-        require_once('head/link.php');
-        require_once('head/script.php');
+    require_once('head/meta.php');
+    require_once('head/link.php');
+    require_once('head/script.php');
     ?>
     <title>Connexion - La Click Project</title>
 </head>
 <body>
     <?php
-        require_once('menu/menu.php');
+    require_once('menu/menu.php');
     ?>
     <div class="container">
         <div class="row">
@@ -40,15 +37,15 @@
                 <h1>Connexion</h1>
                 <form method="post">
                     <div class="mb-3">
-                        <?php if(isset($err_pseudo)){ echo '<div>' . $err_pseudo . '</div>' ; }?>
+                        <?php if (isset($err_pseudo)) { echo '<div>' . $err_pseudo . '</div>'; } ?>
                         <label class="form-label">Pseudo</label>
-                        <input class="form-control" type="text" name="pseudo" value="<?php if(isset($pseudo)){ echo $pseudo; }?>" placeholder="Pseudo"/>
+                        <input class="form-control" type="text" name="pseudo" value="<?php if (isset($pseudo)) { echo $pseudo; } ?>" placeholder="Pseudo"/>
                     </div>
 
                     <div class="mb-3">
-                        <?php if(isset($err_password)){ echo '<div>' . $err_password . '</div>' ; }?>
+                        <?php if (isset($err_password)) { echo '<div>' . $err_password . '</div>'; } ?>
                         <label class="form-label">Mot de passe</label>
-                        <input class="form-control" type="password" name="password" value="<?php if(isset($confmail)){ echo $confmail; }?>" placeholder="Mot de passe"/>
+                        <input class="form-control" type="password" name="password" value="<?php if (isset($password)) { echo $password; } ?>" placeholder="Mot de passe"/>
                     </div>
 
                     <div class="mb-3">
@@ -59,7 +56,7 @@
         </div>
     </div>
     <?php
-        require_once('footer/footer.php');
+    require_once('footer/footer.php');
     ?>
 </body>
 </html>
