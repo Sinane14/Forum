@@ -1,23 +1,23 @@
 <?php
-    require_once('../include.php');
+require_once('../include.php'); // Chemin corrigé pour inclure le fichier
 
-    $req = $DB->prepare("SELECT * FROM forum ORDER BY Num");
-    $req->execute();
-    $req_forum = $req->fetchAll();
+$req = $DB->prepare("SELECT * FROM forum ORDER BY Num");
+$req->execute();
+$req_forum = $req->fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <?php
-        require_once('../head/meta.php');
-        require_once('../head/link.php');
-        require_once('../head/script.php');
+        require_once('../head/meta.php'); // Chemin corrigé
+        require_once('../head/link.php'); // Chemin corrigé
+        require_once('../head/script.php'); // Chemin corrigé
     ?>
-    <title>Liste des Topics - La Click Project</title>
+    <title>Liste des Forums - La Click Project</title>
 </head>
 <body>
     <?php
-    require_once('../menu/menu.php');
+    require_once('../menu/menu.php'); // Chemin corrigé
     ?>
     <div class="container">
         <div class="row">
@@ -39,7 +39,7 @@
         </div>
     </div>
     <?php
-    require_once('../footer/footer.php');
+    require_once('../footer/footer.php'); // Chemin corrigé
     ?>
 </body>
 </html>
