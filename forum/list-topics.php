@@ -1,15 +1,15 @@
 <?php
-require_once('../include.php'); // Chemin corrigé pour inclure le fichier
+require_once('../include.php'); 
 
 if (!isset($_GET['id'])) {
-    header('Location: forum.php'); // Redirection corrigée
+    header('Location: forum.php'); 
     exit;
 }
 
 $get_id_forum = (int) $_GET['id'];
 
 if ($get_id_forum <= 0) {
-    header('Location: forum.php'); // Redirection corrigée
+    header('Location: forum.php');
     exit;
 }
 
@@ -25,15 +25,15 @@ $req_list_topics = $req->fetchAll();
 <html lang="fr">
 <head>
     <?php
-        require_once('../head/meta.php'); // Chemin corrigé
-        require_once('../head/link.php'); // Chemin corrigé
-        require_once('../head/script.php'); // Chemin corrigé
+        require_once('../head/meta.php'); 
+        require_once('../head/link.php'); 
+        require_once('../head/script.php');
     ?>
     <title>Liste des Topics - <?= htmlspecialchars($req_forum['Title']) ?></title>
 </head>
 <body>
     <?php
-    require_once('../menu/menu.php'); // Chemin corrigé
+    require_once('../menu/menu.php');
     ?>
     <div class="container">
         <div class="row">
@@ -55,7 +55,7 @@ $req_list_topics = $req->fetchAll();
         </div>
     </div>
     <?php
-    require_once('../footer/footer.php'); // Chemin corrigé
+    require_once('../footer/footer.php');
     ?>
 </body>
 </html>
