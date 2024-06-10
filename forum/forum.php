@@ -15,7 +15,7 @@ $req_forum = $req->fetchAll();
     ?>
     <title>Liste des Forums - La Click Project</title>
 </head>
-<body>
+<body> 
     <?php
     require_once('../menu/menu.php'); // Chemin corrigé
     ?>
