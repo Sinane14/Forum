@@ -18,6 +18,13 @@
                     ?>
                     <a class="nav-link" href="forum/forum.php">Forums</a>
                     <a class="nav-link" href="profil/profil.php">Mon Profil</a>
+                    <?php
+                        if(in_array($_SESSION['role']. [1, 2])){
+                    ?>
+                        <a class="nav-link" href="profil/profil.php">Admin</a>
+                    <?php
+                        }
+                    ?>
                     <a class="nav-link" href="logout.php">Déconnexion</a>
                     <?php
                         }
